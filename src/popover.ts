@@ -138,7 +138,7 @@ export function renderPopover(element: Element, step: DriveStep) {
   popoverWrapper.style.bottom = "";
   popoverWrapper.style.right = "";
 
-  popoverWrapper.id = "driver-popover-content";
+  popoverWrapper.id = getConfig("uniqueId") ?? "driver-popover-content";
   popoverWrapper.setAttribute("role", "dialog");
   popoverWrapper.setAttribute("aria-labelledby", "driver-popover-title");
   popoverWrapper.setAttribute("aria-describedby", "driver-popover-description");

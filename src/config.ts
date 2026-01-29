@@ -9,6 +9,8 @@ export type DriverHook = (
 ) => void;
 
 export type Config = {
+  uniqueId?: string;
+
   steps?: DriveStep[];
 
   animate?: boolean;
