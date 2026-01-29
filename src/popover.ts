@@ -87,11 +87,11 @@ export function renderPopover(element: Element, step: DriveStep) {
   const prevBtnClass = getConfig('prevBtnClass');
 
   if (nextBtnClass) {
-    popover.nextButton.classList.add(nextBtnClass);
+    popover.nextButton.classList.add(...nextBtnClass.trim().split(/\s+/));
   }
 
   if (prevBtnClass) {
-    popover.previousButton.classList.add(prevBtnClass);
+    popover.previousButton.classList.add(...prevBtnClass.trim().split(/\s+/));
   }
 
   if (title) {
