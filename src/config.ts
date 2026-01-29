@@ -39,6 +39,9 @@ export type Config = {
   prevBtnText?: string;
   doneBtnText?: string;
 
+  nextBtnClass?: string;
+  prevBtnClass?: string;
+
   // Called after the popover is rendered
   onPopoverRender?: (popover: PopoverDOM, opts: { config: Config; state: State; driver: Driver }) => void;
 

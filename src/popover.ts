@@ -83,6 +83,17 @@ export function renderPopover(element: Element, step: DriveStep) {
   popover.previousButton.innerHTML = prevBtnText;
   popover.progress.innerHTML = progressText;
 
+  const nextBtnClass = getConfig('nextBtnClass');
+  const prevBtnClass = getConfig('prevBtnClass');
+
+  if (nextBtnClass) {
+    popover.nextButton.classList.add(nextBtnClass);
+  }
+
+  if (prevBtnClass) {
+    popover.previousButton.classList.add(prevBtnClass);
+  }
+
   if (title) {
     popover.title.innerHTML = title;
     popover.title.style.display = 'block';
