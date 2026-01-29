@@ -25,6 +25,7 @@
     }
   },
   "scripts": {
+    "prepare": "npm run build",
     "dev": "vite --host",
     "build": "tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts",
     "test": "vitest",
