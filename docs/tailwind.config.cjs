@@ -1,18 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     screens: {
-      'sh': {
-        'raw': '(min-height: 750px)',
+      sh: {
+        raw: '(min-height: 750px)',
       },
       ...require('tailwindcss/defaultConfig').theme.screens,
     },
-    container: {
-    },
+    container: {},
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };

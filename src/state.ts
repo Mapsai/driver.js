@@ -1,6 +1,6 @@
-import { StageDefinition } from "./overlay";
-import { PopoverDOM } from "./popover";
-import { DriveStep } from "./driver";
+import { StageDefinition } from './overlay';
+import { PopoverDOM } from './popover';
+import { DriveStep } from './driver';
 
 export type State = {
   isInitialized?: boolean;

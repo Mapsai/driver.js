@@ -1,6 +1,6 @@
-import { Driver, DriveStep } from "./driver";
-import { AllowedButtons, PopoverDOM } from "./popover";
-import { State } from "./state";
+import { Driver, DriveStep } from './driver';
+import { AllowedButtons, PopoverDOM } from './popover';
+import { State } from './state';
 
 export type DriverHook = (
   element: Element | undefined,
@@ -18,7 +18,7 @@ export type Config = {
   overlayOpacity?: number;
   smoothScroll?: boolean;
   allowClose?: boolean;
-  overlayClickBehavior?: "close" | "nextStep" | DriverHook;
+  overlayClickBehavior?: 'close' | 'nextStep' | DriverHook;
   stagePadding?: number;
   stageRadius?: number;
 
@@ -40,7 +40,7 @@ export type Config = {
   doneBtnText?: string;
 
   // Called after the popover is rendered
-  onPopoverRender?: (popover: PopoverDOM, opts: { config: Config; state: State, driver: Driver }) => void;
+  onPopoverRender?: (popover: PopoverDOM, opts: { config: Config; state: State; driver: Driver }) => void;
 
   // State based callbacks, called upon state changes
   onHighlightStarted?: DriverHook;
@@ -62,7 +62,7 @@ export function configure(config: Config = {}) {
   currentConfig = {
     animate: true,
     allowClose: true,
-    overlayClickBehavior: "close",
+    overlayClickBehavior: 'close',
     overlayOpacity: 0.7,
     smoothScroll: false,
     disableActiveInteraction: false,
@@ -70,9 +70,9 @@ export function configure(config: Config = {}) {
     stagePadding: 10,
     stageRadius: 5,
     popoverOffset: 10,
-    showButtons: ["next", "previous", "close"],
+    showButtons: ['next', 'previous', 'close'],
     disableButtons: [],
-    overlayColor: "#000",
+    overlayColor: '#000',
     ...config,
   };
 }

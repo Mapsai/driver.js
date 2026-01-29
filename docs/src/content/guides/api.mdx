@@ -1,6 +1,6 @@
 ---
-title: "API Reference"
-groupTitle: "Introduction"
+title: 'API Reference'
+groupTitle: 'Introduction'
 sort: 4
 ---
 
@@ -9,26 +9,28 @@ Here is the list of methods provided by `driver` when you initialize it.
 > **Note:** We have omitted the configuration options for brevity. Please look at the configuration section for the options. Links are provided in the description below.
 
 ```javascript
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
 
 // Look at the configuration section for the options
 // https://driverjs.com/docs/configuration#driver-configuration
-const driverObj = driver({ /* ... */ });
+const driverObj = driver({
+  /* ... */
+});
 
 // --------------------------------------------------
 // driverObj is an object with the following methods
 // --------------------------------------------------
 
 // Start the tour using `steps` given in the configuration
-driverObj.drive();  // Starts at step 0
+driverObj.drive(); // Starts at step 0
 driverObj.drive(4); // Starts at step 4
 
 driverObj.moveNext(); // Move to the next step
 driverObj.movePrevious(); // Move to the previous step
 driverObj.moveTo(4); // Move to the step 4
 driverObj.hasNextStep(); // Is there a next step
-driverObj.hasPreviousStep() // Is there a previous step
+driverObj.hasPreviousStep(); // Is there a previous step
 
 driverObj.isFirstStep(); // Is the current step the first step
 driverObj.isLastStep(); // Is the current step the last step
@@ -49,9 +51,13 @@ driverObj.refresh();
 // Look at the configuration section for configuration options
 // https://driverjs.com/docs/configuration#driver-configuration
 driverObj.getConfig();
-driverObj.setConfig({ /* ... */ });
+driverObj.setConfig({
+  /* ... */
+});
 
-driverObj.setSteps([ /* ... */ ]); // Set the steps
+driverObj.setSteps([
+  /* ... */
+]); // Set the steps
 
 // Look at the state section of configuration for format of the state
 // https://driverjs.com/docs/configuration#state
@@ -59,7 +65,9 @@ driverObj.getState();
 
 // Look at the DriveStep section of configuration for format of the step
 // https://driverjs.com/docs/configuration/#drive-step-configuration
-driverObj.highlight({ /* ... */ }); // Highlight an element
+driverObj.highlight({
+  /* ... */
+}); // Highlight an element
 
 driverObj.destroy(); // Destroy the tour
 ```

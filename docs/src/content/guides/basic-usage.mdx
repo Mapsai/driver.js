@@ -1,10 +1,10 @@
 ---
-title: "Basic Usage"
-groupTitle: "Introduction"
+title: 'Basic Usage'
+groupTitle: 'Introduction'
 sort: 2
 ---
 
-import { CodeSample } from "../../components/CodeSample.tsx";
+import { CodeSample } from '../../components/CodeSample.tsx';
 
 Once installed, you can import and start using the library. There are several different configuration options available to customize the library. You can find more details about the options in the [configuration section](/docs/configuration). Given below are the basic steps to get started.
 
@@ -30,17 +30,18 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
 const driverObj = driver({
-  showProgress: true,
-  steps: [
-    { element: '.page-header', popover: { title: 'Title', description: 'Description' } },
-    { element: '.top-nav', popover: { title: 'Title', description: 'Description' } },
-    { element: '.sidebar', popover: { title: 'Title', description: 'Description' } },
-    { element: '.footer', popover: { title: 'Title', description: 'Description' } },
-  ]
+showProgress: true,
+steps: [
+{ element: '.page-header', popover: { title: 'Title', description: 'Description' } },
+{ element: '.top-nav', popover: { title: 'Title', description: 'Description' } },
+{ element: '.sidebar', popover: { title: 'Title', description: 'Description' } },
+{ element: '.footer', popover: { title: 'Title', description: 'Description' } },
+]
 });
 
 driverObj.drive();
-```
+
+````
 </CodeSample>
 
 You can pass a single step configuration to the `highlight` method to highlight a single element. Given below is a simple example of how to highlight a single element.
@@ -64,7 +65,8 @@ driverObj.highlight({
     description: 'Description for it',
   },
 });
-```
+````
+
 </CodeSample>
 
 The same configuration passed to the `highlight` method can be used to create a tour. Given below is a simple example of how to create a tour with a single step.

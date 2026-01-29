@@ -1,12 +1,13 @@
 ---
-title: "Migrate to 1.x"
-groupTitle: "Introduction"
+title: 'Migrate to 1.x'
+groupTitle: 'Introduction'
 sort: 6
 ---
 
 Drivers 1.x is a major release that introduces a new API and a new architecture. This page will help you migrate your code from 0.x to 1.x.
 
 > Change in how you import the library
+
 ```diff
 - import Driver from 'driver.js';
 - import 'driver.js/dist/driver.min.css';
@@ -15,6 +16,7 @@ Drivers 1.x is a major release that introduces a new API and a new architecture.
 ```
 
 > Change in how you initialize the library
+
 ```diff
 - const driverObj = new Driver(config);
 - driverObj.setSteps(steps);

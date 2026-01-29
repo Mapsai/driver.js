@@ -1,11 +1,11 @@
-import { AllowedButtons, destroyPopover, Popover } from "./popover";
-import { destroyOverlay } from "./overlay";
-import { destroyEvents, initEvents, requireRefresh } from "./events";
-import { Config, configure, DriverHook, getConfig, getCurrentDriver, setCurrentDriver } from "./config";
-import { destroyHighlight, highlight } from "./highlight";
-import { destroyEmitter, listen } from "./emitter";
-import { getState, resetState, setState } from "./state";
-import "./driver.css";
+import { AllowedButtons, destroyPopover, Popover } from './popover';
+import { destroyOverlay } from './overlay';
+import { destroyEvents, initEvents, requireRefresh } from './events';
+import { Config, configure, DriverHook, getConfig, getCurrentDriver, setCurrentDriver } from './config';
+import { destroyHighlight, highlight } from './highlight';
+import { destroyEmitter, listen } from './emitter';
+import { getState, resetState, setState } from './state';
+import './driver.css';
 
 export type DriveStep = {
   element?: string | Element | (() => Element);
@@ -44,7 +44,7 @@ export function driver(options: Config = {}): Driver {
   configure(options);
 
   function handleClose() {
-    if (!getConfig("allowClose")) {
+    if (!getConfig('allowClose')) {
       return;
     }
 
@@ -52,16 +52,16 @@ export function driver(options: Config = {}): Driver {
   }
 
   function handleOverlayClick() {
-    const overlayClickBehavior = getConfig("overlayClickBehavior");
+    const overlayClickBehavior = getConfig('overlayClickBehavior');
 
-    if (getConfig("allowClose") && overlayClickBehavior === "close") {
+    if (getConfig('allowClose') && overlayClickBehavior === 'close') {
       destroy();
       return;
     }
 
-    if (typeof overlayClickBehavior === "function") {
-      const activeStep = getState("__activeStep");
-      const activeElement = getState("__activeElement");
+    if (typeof overlayClickBehavior === 'function') {
+      const activeStep = getState('__activeStep');
+      const activeElement = getState('__activeElement');
 
       overlayClickBehavior(activeElement, activeStep!, {
         config: getConfig(),
@@ -72,15 +72,15 @@ export function driver(options: Config = {}): Driver {
       return;
     }
 
-    if (overlayClickBehavior === "nextStep") {
+    if (overlayClickBehavior === 'nextStep') {
       moveNext();
     }
   }
 
   function moveNext() {
-    const activeIndex = getState("activeIndex");
-    const steps = getConfig("steps") || [];
-    if (typeof activeIndex === "undefined") {
+    const activeIndex = getState('activeIndex');
+    const steps = getConfig('steps') || [];
+    if (typeof activeIndex === 'undefined') {
       return;
     }
 
@@ -93,9 +93,9 @@ export function driver(options: Config = {}): Driver {
   }
 
   function movePrevious() {
-    const activeIndex = getState("activeIndex");
-    const steps = getConfig("steps") || [];
-    if (typeof activeIndex === "undefined") {
+    const activeIndex = getState('activeIndex');
+    const steps = getConfig('steps') || [];
+    if (typeof activeIndex === 'undefined') {
       return;
     }
 
@@ -108,7 +108,7 @@ export function driver(options: Config = {}): Driver {
   }
 
   function moveTo(index: number) {
-    const steps = getConfig("steps") || [];
+    const steps = getConfig('steps') || [];
 
     if (steps[index]) {
       drive(index);
@@ -118,24 +118,24 @@ export function driver(options: Config = {}): Driver {
   }
 
   function handleArrowLeft() {
-    const isTransitioning = getState("__transitionCallback");
+    const isTransitioning = getState('__transitionCallback');
     if (isTransitioning) {
       return;
     }
 
-    const activeIndex = getState("activeIndex");
-    const activeStep = getState("__activeStep");
-    const activeElement = getState("__activeElement");
-    if (typeof activeIndex === "undefined" || typeof activeStep === "undefined") {
+    const activeIndex = getState('activeIndex');
+    const activeStep = getState('__activeStep');
+    const activeElement = getState('__activeElement');
+    if (typeof activeIndex === 'undefined' || typeof activeStep === 'undefined') {
       return;
     }
 
-    const currentStepIndex = getState("activeIndex");
-    if (typeof currentStepIndex === "undefined") {
+    const currentStepIndex = getState('activeIndex');
+    if (typeof currentStepIndex === 'undefined') {
       return;
     }
 
-    const onPrevClick = activeStep.popover?.onPrevClick || getConfig("onPrevClick");
+    const onPrevClick = activeStep.popover?.onPrevClick || getConfig('onPrevClick');
     if (onPrevClick) {
       return onPrevClick(activeElement, activeStep, {
         config: getConfig(),
@@ -148,19 +148,19 @@ export function driver(options: Config = {}): Driver {
   }
 
   function handleArrowRight() {
-    const isTransitioning = getState("__transitionCallback");
+    const isTransitioning = getState('__transitionCallback');
     if (isTransitioning) {
       return;
     }
 
-    const activeIndex = getState("activeIndex");
-    const activeStep = getState("__activeStep");
-    const activeElement = getState("__activeElement");
-    if (typeof activeIndex === "undefined" || typeof activeStep === "undefined") {
+    const activeIndex = getState('activeIndex');
+    const activeStep = getState('__activeStep');
+    const activeElement = getState('__activeElement');
+    if (typeof activeIndex === 'undefined' || typeof activeStep === 'undefined') {
       return;
     }
 
-    const onNextClick = activeStep.popover?.onNextClick || getConfig("onNextClick");
+    const onNextClick = activeStep.popover?.onNextClick || getConfig('onNextClick');
     if (onNextClick) {
       return onNextClick(activeElement, activeStep, {
         config: getConfig(),
@@ -173,25 +173,25 @@ export function driver(options: Config = {}): Driver {
   }
 
   function init() {
-    if (getState("isInitialized")) {
+    if (getState('isInitialized')) {
       return;
     }
 
-    setState("isInitialized", true);
-    document.body.classList.add("driver-active", getConfig("animate") ? "driver-fade" : "driver-simple");
+    setState('isInitialized', true);
+    document.body.classList.add('driver-active', getConfig('animate') ? 'driver-fade' : 'driver-simple');
 
     initEvents();
 
-    listen("overlayClick", handleOverlayClick);
-    listen("escapePress", handleClose);
-    listen("arrowLeftPress", handleArrowLeft);
-    listen("arrowRightPress", handleArrowRight);
+    listen('overlayClick', handleOverlayClick);
+    listen('escapePress', handleClose);
+    listen('arrowLeftPress', handleArrowLeft);
+    listen('arrowRightPress', handleArrowRight);
   }
 
   function drive(stepIndex: number = 0) {
-    const steps = getConfig("steps");
+    const steps = getConfig('steps');
     if (!steps) {
-      console.error("No steps to drive through");
+      console.error('No steps to drive through');
       destroy();
       return;
     }
@@ -202,43 +202,43 @@ export function driver(options: Config = {}): Driver {
       return;
     }
 
-    setState("__activeOnDestroyed", document.activeElement as HTMLElement);
-    setState("activeIndex", stepIndex);
+    setState('__activeOnDestroyed', document.activeElement as HTMLElement);
+    setState('activeIndex', stepIndex);
 
     const currentStep = steps[stepIndex];
     const hasNextStep = steps[stepIndex + 1];
     const hasPreviousStep = steps[stepIndex - 1];
 
-    const doneBtnText = currentStep.popover?.doneBtnText || getConfig("doneBtnText") || "Done";
-    const allowsClosing = getConfig("allowClose");
+    const doneBtnText = currentStep.popover?.doneBtnText || getConfig('doneBtnText') || 'Done';
+    const allowsClosing = getConfig('allowClose');
     const showProgress =
-      typeof currentStep.popover?.showProgress !== "undefined"
+      typeof currentStep.popover?.showProgress !== 'undefined'
         ? currentStep.popover?.showProgress
-        : getConfig("showProgress");
-    const progressText = currentStep.popover?.progressText || getConfig("progressText") || "{{current}} of {{total}}";
+        : getConfig('showProgress');
+    const progressText = currentStep.popover?.progressText || getConfig('progressText') || '{{current}} of {{total}}';
     const progressTextReplaced = progressText
-      .replace("{{current}}", `${stepIndex + 1}`)
-      .replace("{{total}}", `${steps.length}`);
+      .replace('{{current}}', `${stepIndex + 1}`)
+      .replace('{{total}}', `${steps.length}`);
 
-    const configuredButtons = currentStep.popover?.showButtons || getConfig("showButtons");
+    const configuredButtons = currentStep.popover?.showButtons || getConfig('showButtons');
     const calculatedButtons: AllowedButtons[] = [
-      "next",
-      "previous",
-      ...(allowsClosing ? ["close" as AllowedButtons] : []),
+      'next',
+      'previous',
+      ...(allowsClosing ? ['close' as AllowedButtons] : []),
     ].filter(b => {
       return !configuredButtons?.length || configuredButtons.includes(b as AllowedButtons);
     }) as AllowedButtons[];
 
-    const onNextClick = currentStep.popover?.onNextClick || getConfig("onNextClick");
-    const onPrevClick = currentStep.popover?.onPrevClick || getConfig("onPrevClick");
-    const onCloseClick = currentStep.popover?.onCloseClick || getConfig("onCloseClick");
+    const onNextClick = currentStep.popover?.onNextClick || getConfig('onNextClick');
+    const onPrevClick = currentStep.popover?.onPrevClick || getConfig('onPrevClick');
+    const onCloseClick = currentStep.popover?.onCloseClick || getConfig('onCloseClick');
 
     highlight({
       ...currentStep,
       popover: {
         showButtons: calculatedButtons,
         nextBtnText: !hasNextStep ? doneBtnText : undefined,
-        disableButtons: [...(!hasPreviousStep ? ["previous" as AllowedButtons] : [])],
+        disableButtons: [...(!hasPreviousStep ? ['previous' as AllowedButtons] : [])],
         showProgress: showProgress,
         progressText: progressTextReplaced,
         onNextClick: onNextClick
@@ -266,17 +266,17 @@ export function driver(options: Config = {}): Driver {
   }
 
   function destroy(withOnDestroyStartedHook = true) {
-    const activeElement = getState("__activeElement");
-    const activeStep = getState("__activeStep");
+    const activeElement = getState('__activeElement');
+    const activeStep = getState('__activeStep');
 
-    const activeOnDestroyed = getState("__activeOnDestroyed");
+    const activeOnDestroyed = getState('__activeOnDestroyed');
 
-    const onDestroyStarted = getConfig("onDestroyStarted");
+    const onDestroyStarted = getConfig('onDestroyStarted');
     // `onDestroyStarted` is used to confirm the exit of tour. If we trigger
     // the hook for when user calls `destroy`, driver will get into infinite loop
     // not causing tour to be destroyed.
     if (withOnDestroyStartedHook && onDestroyStarted) {
-      const isActiveDummyElement = !activeElement || activeElement?.id === "driver-dummy-element";
+      const isActiveDummyElement = !activeElement || activeElement?.id === 'driver-dummy-element';
       onDestroyStarted(isActiveDummyElement ? undefined : activeElement, activeStep!, {
         config: getConfig(),
         state: getState(),
@@ -285,10 +285,10 @@ export function driver(options: Config = {}): Driver {
       return;
     }
 
-    const onDeselected = activeStep?.onDeselected || getConfig("onDeselected");
-    const onDestroyed = getConfig("onDestroyed");
+    const onDeselected = activeStep?.onDeselected || getConfig('onDeselected');
+    const onDestroyed = getConfig('onDestroyed');
 
-    document.body.classList.remove("driver-active", "driver-fade", "driver-simple");
+    document.body.classList.remove('driver-active', 'driver-fade', 'driver-simple');
 
     destroyEvents();
     destroyPopover();
@@ -299,7 +299,7 @@ export function driver(options: Config = {}): Driver {
     resetState();
 
     if (activeElement && activeStep) {
-      const isActiveDummyElement = activeElement.id === "driver-dummy-element";
+      const isActiveDummyElement = activeElement.id === 'driver-dummy-element';
       if (onDeselected) {
         onDeselected(isActiveDummyElement ? undefined : activeElement, activeStep, {
           config: getConfig(),
@@ -323,7 +323,7 @@ export function driver(options: Config = {}): Driver {
   }
 
   const api: Driver = {
-    isActive: () => getState("isInitialized") || false,
+    isActive: () => getState('isInitialized') || false,
     refresh: requireRefresh,
     drive: (stepIndex: number = 0) => {
       init();
@@ -339,30 +339,30 @@ export function driver(options: Config = {}): Driver {
     },
     getConfig,
     getState,
-    getActiveIndex: () => getState("activeIndex"),
-    isFirstStep: () => getState("activeIndex") === 0,
+    getActiveIndex: () => getState('activeIndex'),
+    isFirstStep: () => getState('activeIndex') === 0,
     isLastStep: () => {
-      const steps = getConfig("steps") || [];
-      const activeIndex = getState("activeIndex");
+      const steps = getConfig('steps') || [];
+      const activeIndex = getState('activeIndex');
 
       return activeIndex !== undefined && activeIndex === steps.length - 1;
     },
-    getActiveStep: () => getState("activeStep"),
-    getActiveElement: () => getState("activeElement"),
-    getPreviousElement: () => getState("previousElement"),
-    getPreviousStep: () => getState("previousStep"),
+    getActiveStep: () => getState('activeStep'),
+    getActiveElement: () => getState('activeElement'),
+    getPreviousElement: () => getState('previousElement'),
+    getPreviousStep: () => getState('previousStep'),
     moveNext,
     movePrevious,
     moveTo,
     hasNextStep: () => {
-      const steps = getConfig("steps") || [];
-      const activeIndex = getState("activeIndex");
+      const steps = getConfig('steps') || [];
+      const activeIndex = getState('activeIndex');
 
       return activeIndex !== undefined && !!steps[activeIndex + 1];
     },
     hasPreviousStep: () => {
-      const steps = getConfig("steps") || [];
-      const activeIndex = getState("activeIndex");
+      const steps = getConfig('steps') || [];
+      const activeIndex = getState('activeIndex');
 
       return activeIndex !== undefined && !!steps[activeIndex - 1];
     },
@@ -374,7 +374,7 @@ export function driver(options: Config = {}): Driver {
           ? {
               showButtons: [],
               showProgress: false,
-              progressText: "",
+              progressText: '',
               ...step.popover!,
             }
           : undefined,

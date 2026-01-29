@@ -1,13 +1,13 @@
-import { Config, DriverHook, getConfig, getCurrentDriver } from "./config";
-import { Driver, DriveStep } from "./driver";
-import { emit } from "./emitter";
-import { onDriverClick } from "./events";
-import { getState, setState, State } from "./state";
-import { bringInView, getFocusableElements } from "./utils";
+import { Config, DriverHook, getConfig, getCurrentDriver } from './config';
+import { Driver, DriveStep } from './driver';
+import { emit } from './emitter';
+import { onDriverClick } from './events';
+import { getState, setState, State } from './state';
+import { bringInView, getFocusableElements } from './utils';
 
-export type Side = "top" | "right" | "bottom" | "left" | "over";
-export type Alignment = "start" | "center" | "end";
-export type AllowedButtons = "next" | "previous" | "close";
+export type Side = 'top' | 'right' | 'bottom' | 'left' | 'over';
+export type Alignment = 'start' | 'center' | 'end';
+export type AllowedButtons = 'next' | 'previous' | 'close';
 
 export type Popover = {
   title?: string;
@@ -50,16 +50,16 @@ export type PopoverDOM = {
 };
 
 export function hidePopover() {
-  const popover = getState("popover");
+  const popover = getState('popover');
   if (!popover) {
     return;
   }
 
-  popover.wrapper.style.display = "none";
+  popover.wrapper.style.display = 'none';
 }
 
 export function renderPopover(element: Element, step: DriveStep) {
-  let popover = getState("popover");
+  let popover = getState('popover');
   if (popover) {
     document.body.removeChild(popover.wrapper);
   }
@@ -74,9 +74,9 @@ export function renderPopover(element: Element, step: DriveStep) {
     disableButtons,
     showProgress,
 
-    nextBtnText = getConfig("nextBtnText") || "Next &rarr;",
-    prevBtnText = getConfig("prevBtnText") || "&larr; Previous",
-    progressText = getConfig("progressText") || "{current} of {total}",
+    nextBtnText = getConfig('nextBtnText') || 'Next &rarr;',
+    prevBtnText = getConfig('prevBtnText') || '&larr; Previous',
+    progressText = getConfig('progressText') || '{current} of {total}',
   } = step.popover || {};
 
   popover.nextButton.innerHTML = nextBtnText;
@@ -85,70 +85,70 @@ export function renderPopover(element: Element, step: DriveStep) {
 
   if (title) {
     popover.title.innerHTML = title;
-    popover.title.style.display = "block";
+    popover.title.style.display = 'block';
   } else {
-    popover.title.style.display = "none";
+    popover.title.style.display = 'none';
   }
 
   if (description) {
     popover.description.innerHTML = description;
-    popover.description.style.display = "block";
+    popover.description.style.display = 'block';
   } else {
-    popover.description.style.display = "none";
+    popover.description.style.display = 'none';
   }
 
-  const showButtonsConfig: AllowedButtons[] = showButtons || getConfig("showButtons")!;
-  const showProgressConfig = showProgress || getConfig("showProgress") || false;
+  const showButtonsConfig: AllowedButtons[] = showButtons || getConfig('showButtons')!;
+  const showProgressConfig = showProgress || getConfig('showProgress') || false;
   const showFooter =
-    showButtonsConfig?.includes("next") || showButtonsConfig?.includes("previous") || showProgressConfig;
+    showButtonsConfig?.includes('next') || showButtonsConfig?.includes('previous') || showProgressConfig;
 
-  popover.closeButton.style.display = showButtonsConfig.includes("close") ? "block" : "none";
+  popover.closeButton.style.display = showButtonsConfig.includes('close') ? 'block' : 'none';
 
   if (showFooter) {
-    popover.footer.style.display = "flex";
+    popover.footer.style.display = 'flex';
 
-    popover.progress.style.display = showProgressConfig ? "block" : "none";
-    popover.nextButton.style.display = showButtonsConfig.includes("next") ? "block" : "none";
-    popover.previousButton.style.display = showButtonsConfig.includes("previous") ? "block" : "none";
+    popover.progress.style.display = showProgressConfig ? 'block' : 'none';
+    popover.nextButton.style.display = showButtonsConfig.includes('next') ? 'block' : 'none';
+    popover.previousButton.style.display = showButtonsConfig.includes('previous') ? 'block' : 'none';
   } else {
-    popover.footer.style.display = "none";
+    popover.footer.style.display = 'none';
   }
 
-  const disabledButtonsConfig: AllowedButtons[] = disableButtons || getConfig("disableButtons")! || [];
-  if (disabledButtonsConfig?.includes("next")) {
+  const disabledButtonsConfig: AllowedButtons[] = disableButtons || getConfig('disableButtons')! || [];
+  if (disabledButtonsConfig?.includes('next')) {
     popover.nextButton.disabled = true;
-    popover.nextButton.classList.add("driver-popover-btn-disabled");
+    popover.nextButton.classList.add('driver-popover-btn-disabled');
   }
 
-  if (disabledButtonsConfig?.includes("previous")) {
+  if (disabledButtonsConfig?.includes('previous')) {
     popover.previousButton.disabled = true;
-    popover.previousButton.classList.add("driver-popover-btn-disabled");
+    popover.previousButton.classList.add('driver-popover-btn-disabled');
   }
 
-  if (disabledButtonsConfig?.includes("close")) {
+  if (disabledButtonsConfig?.includes('close')) {
     popover.closeButton.disabled = true;
-    popover.closeButton.classList.add("driver-popover-btn-disabled");
+    popover.closeButton.classList.add('driver-popover-btn-disabled');
   }
 
   // Reset the popover position
   const popoverWrapper = popover.wrapper;
-  popoverWrapper.style.display = "block";
-  popoverWrapper.style.left = "";
-  popoverWrapper.style.top = "";
-  popoverWrapper.style.bottom = "";
-  popoverWrapper.style.right = "";
+  popoverWrapper.style.display = 'block';
+  popoverWrapper.style.left = '';
+  popoverWrapper.style.top = '';
+  popoverWrapper.style.bottom = '';
+  popoverWrapper.style.right = '';
 
-  popoverWrapper.id = getConfig("uniqueId") ?? "driver-popover-content";
-  popoverWrapper.setAttribute("role", "dialog");
-  popoverWrapper.setAttribute("aria-labelledby", "driver-popover-title");
-  popoverWrapper.setAttribute("aria-describedby", "driver-popover-description");
+  popoverWrapper.id = getConfig('uniqueId') ?? 'driver-popover-content';
+  popoverWrapper.setAttribute('role', 'dialog');
+  popoverWrapper.setAttribute('aria-labelledby', 'driver-popover-title');
+  popoverWrapper.setAttribute('aria-describedby', 'driver-popover-description');
 
   // Reset the classes responsible for the arrow position
   const popoverArrow = popover.arrow;
-  popoverArrow.className = "driver-popover-arrow";
+  popoverArrow.className = 'driver-popover-arrow';
 
   // Reset any custom classes on the popover
-  const customPopoverClass = step.popover?.popoverClass || getConfig("popoverClass") || "";
+  const customPopoverClass = step.popover?.popoverClass || getConfig('popoverClass') || '';
   popoverWrapper.className = `driver-popover ${customPopoverClass}`.trim();
 
   // Handles the popover button clicks
@@ -157,11 +157,11 @@ export function renderPopover(element: Element, step: DriveStep) {
     e => {
       const target = e.target as HTMLElement;
 
-      const onNextClick = step.popover?.onNextClick || getConfig("onNextClick");
-      const onPrevClick = step.popover?.onPrevClick || getConfig("onPrevClick");
-      const onCloseClick = step.popover?.onCloseClick || getConfig("onCloseClick");
+      const onNextClick = step.popover?.onNextClick || getConfig('onNextClick');
+      const onPrevClick = step.popover?.onPrevClick || getConfig('onPrevClick');
+      const onCloseClick = step.popover?.onCloseClick || getConfig('onCloseClick');
 
-      if (!!target.closest(".driver-popover-next-btn")) {
+      if (!!target.closest('.driver-popover-next-btn')) {
         // If the user has provided a custom callback, call it
         // otherwise, emit the event.
         if (onNextClick) {
@@ -171,11 +171,11 @@ export function renderPopover(element: Element, step: DriveStep) {
             driver: getCurrentDriver(),
           });
         } else {
-          return emit("nextClick");
+          return emit('nextClick');
         }
       }
 
-      if (!!target.closest(".driver-popover-prev-btn")) {
+      if (!!target.closest('.driver-popover-prev-btn')) {
         if (onPrevClick) {
           return onPrevClick(element, step, {
             config: getConfig(),
@@ -183,11 +183,11 @@ export function renderPopover(element: Element, step: DriveStep) {
             driver: getCurrentDriver(),
           });
         } else {
-          return emit("prevClick");
+          return emit('prevClick');
         }
       }
 
-      if (!!target.closest(".driver-popover-close-btn")) {
+      if (!!target.closest('.driver-popover-close-btn')) {
         if (onCloseClick) {
           return onCloseClick(element, step, {
             config: getConfig(),
@@ -195,7 +195,7 @@ export function renderPopover(element: Element, step: DriveStep) {
             driver: getCurrentDriver(),
           });
         } else {
-          return emit("closeClick");
+          return emit('closeClick');
         }
       }
 
@@ -207,15 +207,15 @@ export function renderPopover(element: Element, step: DriveStep) {
       return (
         !popover?.description.contains(target) &&
         !popover?.title.contains(target) &&
-        typeof target.className === "string" &&
-        target.className.includes("driver-popover")
+        typeof target.className === 'string' &&
+        target.className.includes('driver-popover')
       );
     }
   );
 
-  setState("popover", popover);
+  setState('popover', popover);
 
-  const onPopoverRender = step.popover?.onPopoverRender || getConfig("onPopoverRender");
+  const onPopoverRender = step.popover?.onPopoverRender || getConfig('onPopoverRender');
   if (onPopoverRender) {
     onPopoverRender(popover, {
       config: getConfig(),
@@ -228,7 +228,7 @@ export function renderPopover(element: Element, step: DriveStep) {
   bringInView(popoverWrapper);
 
   // Focus on the first focusable element in active element or popover
-  const isToDummyElement = element.classList.contains("driver-dummy-element");
+  const isToDummyElement = element.classList.contains('driver-dummy-element');
   const focusableElement = getFocusableElements([popoverWrapper, ...(isToDummyElement ? [] : [element])]);
   if (focusableElement.length > 0) {
     focusableElement[0].focus();
@@ -243,15 +243,15 @@ type PopoverDimensions = {
 };
 
 function getPopoverDimensions(): PopoverDimensions | undefined {
-  const popover = getState("popover");
+  const popover = getState('popover');
   if (!popover?.wrapper) {
     return;
   }
 
   const boundingClientRect = popover.wrapper.getBoundingClientRect();
 
-  const stagePadding = getConfig("stagePadding") || 0;
-  const popoverOffset = getConfig("popoverOffset") || 0;
+  const stagePadding = getConfig('stagePadding') || 0;
+  const popoverOffset = getConfig('popoverOffset') || 0;
 
   return {
     width: boundingClientRect.width + stagePadding + popoverOffset,
@@ -273,7 +273,7 @@ function calculateTopForLeftRight(
 ): number {
   const { elementDimensions, popoverDimensions, popoverPadding, popoverArrowDimensions } = config;
 
-  if (alignment === "start") {
+  if (alignment === 'start') {
     return Math.max(
       Math.min(
         elementDimensions.top - popoverPadding,
@@ -283,7 +283,7 @@ function calculateTopForLeftRight(
     );
   }
 
-  if (alignment === "end") {
+  if (alignment === 'end') {
     return Math.max(
       Math.min(
         elementDimensions.top - popoverDimensions?.realHeight + elementDimensions.height + popoverPadding,
@@ -293,7 +293,7 @@ function calculateTopForLeftRight(
     );
   }
 
-  if (alignment === "center") {
+  if (alignment === 'center') {
     return Math.max(
       Math.min(
         elementDimensions.top + elementDimensions.height / 2 - popoverDimensions?.realHeight / 2,
@@ -318,7 +318,7 @@ function calculateLeftForTopBottom(
 ): number {
   const { elementDimensions, popoverDimensions, popoverPadding, popoverArrowDimensions } = config;
 
-  if (alignment === "start") {
+  if (alignment === 'start') {
     return Math.max(
       Math.min(
         elementDimensions.left - popoverPadding,
@@ -328,7 +328,7 @@ function calculateLeftForTopBottom(
     );
   }
 
-  if (alignment === "end") {
+  if (alignment === 'end') {
     return Math.max(
       Math.min(
         elementDimensions.left - popoverDimensions?.realWidth + elementDimensions.width + popoverPadding,
@@ -338,7 +338,7 @@ function calculateLeftForTopBottom(
     );
   }
 
-  if (alignment === "center") {
+  if (alignment === 'center') {
     return Math.max(
       Math.min(
         elementDimensions.left + elementDimensions.width / 2 - popoverDimensions?.realWidth / 2,
@@ -352,17 +352,17 @@ function calculateLeftForTopBottom(
 }
 
 export function repositionPopover(element: Element, step: DriveStep) {
-  const popover = getState("popover");
+  const popover = getState('popover');
   if (!popover) {
     return;
   }
 
-  const { align = "start", side = "left" } = step?.popover || {};
+  const { align = 'start', side = 'left' } = step?.popover || {};
 
   // Configure the popover positioning
   const requiredAlignment: Alignment = align;
-  const requiredSide: Side = element.id === "driver-dummy-element" ? "over" : side;
-  const popoverPadding = getConfig("stagePadding") || 0;
+  const requiredSide: Side = element.id === 'driver-dummy-element' ? 'over' : side;
+  const popoverPadding = getConfig('stagePadding') || 0;
 
   const popoverDimensions = getPopoverDimensions()!;
   const popoverArrowDimensions = popover.arrow.getBoundingClientRect();
@@ -383,17 +383,17 @@ export function repositionPopover(element: Element, step: DriveStep) {
   const noneOptimal = !isTopOptimal && !isBottomOptimal && !isLeftOptimal && !isRightOptimal;
   let popoverRenderedSide: Side = requiredSide;
 
-  if (requiredSide === "top" && isTopOptimal) {
+  if (requiredSide === 'top' && isTopOptimal) {
     isRightOptimal = isLeftOptimal = isBottomOptimal = false;
-  } else if (requiredSide === "bottom" && isBottomOptimal) {
+  } else if (requiredSide === 'bottom' && isBottomOptimal) {
     isRightOptimal = isLeftOptimal = isTopOptimal = false;
-  } else if (requiredSide === "left" && isLeftOptimal) {
+  } else if (requiredSide === 'left' && isLeftOptimal) {
     isRightOptimal = isTopOptimal = isBottomOptimal = false;
-  } else if (requiredSide === "right" && isRightOptimal) {
+  } else if (requiredSide === 'right' && isRightOptimal) {
     isLeftOptimal = isTopOptimal = isBottomOptimal = false;
   }
 
-  if (requiredSide === "over") {
+  if (requiredSide === 'over') {
     const leftToSet = window.innerWidth / 2 - popoverDimensions!.realWidth / 2;
     const topToSet = window.innerHeight / 2 - popoverDimensions!.realHeight / 2;
 
@@ -425,9 +425,9 @@ export function repositionPopover(element: Element, step: DriveStep) {
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
-    popover.wrapper.style.right = "auto";
+    popover.wrapper.style.right = 'auto';
 
-    popoverRenderedSide = "left";
+    popoverRenderedSide = 'left';
   } else if (isRightOptimal) {
     const rightToSet = Math.min(
       rightValue,
@@ -443,9 +443,9 @@ export function repositionPopover(element: Element, step: DriveStep) {
     popover.wrapper.style.right = `${rightToSet}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
-    popover.wrapper.style.left = "auto";
+    popover.wrapper.style.left = 'auto';
 
-    popoverRenderedSide = "right";
+    popoverRenderedSide = 'right';
   } else if (isTopOptimal) {
     const topToSet = Math.min(
       topValue,
@@ -461,9 +461,9 @@ export function repositionPopover(element: Element, step: DriveStep) {
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.bottom = `auto`;
-    popover.wrapper.style.right = "auto";
+    popover.wrapper.style.right = 'auto';
 
-    popoverRenderedSide = "top";
+    popoverRenderedSide = 'top';
   } else if (isBottomOptimal) {
     const bottomToSet = Math.min(
       bottomValue,
@@ -480,9 +480,9 @@ export function repositionPopover(element: Element, step: DriveStep) {
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.bottom = `${bottomToSet}px`;
     popover.wrapper.style.top = `auto`;
-    popover.wrapper.style.right = "auto";
+    popover.wrapper.style.right = 'auto';
 
-    popoverRenderedSide = "bottom";
+    popoverRenderedSide = 'bottom';
   }
 
   // Popover stays on the screen if the element scrolls out of the visible area.
@@ -493,12 +493,12 @@ export function repositionPopover(element: Element, step: DriveStep) {
   if (!noneOptimal) {
     renderPopoverArrow(requiredAlignment, popoverRenderedSide, element);
   } else {
-    popover.arrow.classList.add("driver-popover-arrow-none");
+    popover.arrow.classList.add('driver-popover-arrow-none');
   }
 }
 
 function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) {
-  const popover = getState("popover");
+  const popover = getState('popover');
   if (!popover) {
     return;
   }
@@ -518,84 +518,84 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
   const elementHeight = elementDimensions.height;
 
   // Remove all arrow classes
-  popoverArrow.className = "driver-popover-arrow";
+  popoverArrow.className = 'driver-popover-arrow';
 
   let arrowSide = side;
   let arrowAlignment = alignment;
 
-  if (side === "top") {
+  if (side === 'top') {
     if (elementLeft + elementWidth <= 0) {
-      arrowSide = "right";
-      arrowAlignment = "end";
+      arrowSide = 'right';
+      arrowAlignment = 'end';
     } else if (elementLeft + elementWidth - popoverWidth <= 0) {
-      arrowSide = "top";
-      arrowAlignment = "start";
+      arrowSide = 'top';
+      arrowAlignment = 'start';
     }
     if (elementLeft >= windowWidth) {
-      arrowSide = "left";
-      arrowAlignment = "end";
+      arrowSide = 'left';
+      arrowAlignment = 'end';
     } else if (elementLeft + popoverWidth >= windowWidth) {
-      arrowSide = "top";
-      arrowAlignment = "end";
+      arrowSide = 'top';
+      arrowAlignment = 'end';
     }
-  } else if (side === "bottom") {
+  } else if (side === 'bottom') {
     if (elementLeft + elementWidth <= 0) {
-      arrowSide = "right";
-      arrowAlignment = "start";
+      arrowSide = 'right';
+      arrowAlignment = 'start';
     } else if (elementLeft + elementWidth - popoverWidth <= 0) {
-      arrowSide = "bottom";
-      arrowAlignment = "start";
+      arrowSide = 'bottom';
+      arrowAlignment = 'start';
     }
     if (elementLeft >= windowWidth) {
-      arrowSide = "left";
-      arrowAlignment = "start";
+      arrowSide = 'left';
+      arrowAlignment = 'start';
     } else if (elementLeft + popoverWidth >= windowWidth) {
-      arrowSide = "bottom";
-      arrowAlignment = "end";
+      arrowSide = 'bottom';
+      arrowAlignment = 'end';
     }
-  } else if (side === "left") {
+  } else if (side === 'left') {
     if (elementTop + elementHeight <= 0) {
-      arrowSide = "bottom";
-      arrowAlignment = "end";
+      arrowSide = 'bottom';
+      arrowAlignment = 'end';
     } else if (elementTop + elementHeight - popoverHeight <= 0) {
-      arrowSide = "left";
-      arrowAlignment = "start";
+      arrowSide = 'left';
+      arrowAlignment = 'start';
     }
 
     if (elementTop >= windowHeight) {
-      arrowSide = "top";
-      arrowAlignment = "end";
+      arrowSide = 'top';
+      arrowAlignment = 'end';
     } else if (elementTop + popoverHeight >= windowHeight) {
-      arrowSide = "left";
-      arrowAlignment = "end";
+      arrowSide = 'left';
+      arrowAlignment = 'end';
     }
-  } else if (side === "right") {
+  } else if (side === 'right') {
     if (elementTop + elementHeight <= 0) {
-      arrowSide = "bottom";
-      arrowAlignment = "start";
+      arrowSide = 'bottom';
+      arrowAlignment = 'start';
     } else if (elementTop + elementHeight - popoverHeight <= 0) {
-      arrowSide = "right";
-      arrowAlignment = "start";
+      arrowSide = 'right';
+      arrowAlignment = 'start';
     }
 
     if (elementTop >= windowHeight) {
-      arrowSide = "top";
-      arrowAlignment = "start";
+      arrowSide = 'top';
+      arrowAlignment = 'start';
     } else if (elementTop + popoverHeight >= windowHeight) {
-      arrowSide = "right";
-      arrowAlignment = "end";
+      arrowSide = 'right';
+      arrowAlignment = 'end';
     }
   }
 
   if (!arrowSide) {
-    popoverArrow.classList.add("driver-popover-arrow-none");
+    popoverArrow.classList.add('driver-popover-arrow-none');
   } else {
     popoverArrow.classList.add(`driver-popover-arrow-side-${arrowSide}`);
     popoverArrow.classList.add(`driver-popover-arrow-align-${arrowAlignment}`);
 
     const elementRect = element.getBoundingClientRect();
     const arrowRect = popoverArrow.getBoundingClientRect();
-    const stagePadding = getConfig("stagePadding") || 0;
+    const stagePadding = getConfig('stagePadding') || 0;
 
     const isElementPartiallyInViewPort =
       elementRect.left - stagePadding < window.innerWidth &&
@@ -603,7 +603,7 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
       elementRect.top - stagePadding < window.innerHeight &&
       elementRect.bottom + stagePadding > 0;
 
-    if (side === "bottom" && isElementPartiallyInViewPort) {
+    if (side === 'bottom' && isElementPartiallyInViewPort) {
       const isArrowWithinElementBounds =
         arrowRect.x > elementRect.x && arrowRect.x + arrowRect.width < elementRect.x + elementRect.width;
 
@@ -624,49 +624,49 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
 }
 
 function createPopover(): PopoverDOM {
-  const wrapper = document.createElement("div");
-  wrapper.classList.add("driver-popover");
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('driver-popover');
 
-  const arrow = document.createElement("div");
-  arrow.classList.add("driver-popover-arrow");
+  const arrow = document.createElement('div');
+  arrow.classList.add('driver-popover-arrow');
 
-  const title = document.createElement("header");
-  title.id = "driver-popover-title";
-  title.classList.add("driver-popover-title");
-  title.style.display = "none";
-  title.innerText = "Popover Title";
+  const title = document.createElement('header');
+  title.id = 'driver-popover-title';
+  title.classList.add('driver-popover-title');
+  title.style.display = 'none';
+  title.innerText = 'Popover Title';
 
-  const description = document.createElement("div");
-  description.id = "driver-popover-description";
-  description.classList.add("driver-popover-description");
-  description.style.display = "none";
-  description.innerText = "Popover description is here";
+  const description = document.createElement('div');
+  description.id = 'driver-popover-description';
+  description.classList.add('driver-popover-description');
+  description.style.display = 'none';
+  description.innerText = 'Popover description is here';
 
-  const closeButton = document.createElement("button");
-  closeButton.type = "button";
-  closeButton.classList.add("driver-popover-close-btn");
-  closeButton.setAttribute("aria-label", "Close");
-  closeButton.innerHTML = "&times;";
+  const closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.classList.add('driver-popover-close-btn');
+  closeButton.setAttribute('aria-label', 'Close');
+  closeButton.innerHTML = '&times;';
 
-  const footer = document.createElement("footer");
-  footer.classList.add("driver-popover-footer");
+  const footer = document.createElement('footer');
+  footer.classList.add('driver-popover-footer');
 
-  const progress = document.createElement("span");
-  progress.classList.add("driver-popover-progress-text");
-  progress.innerText = "";
+  const progress = document.createElement('span');
+  progress.classList.add('driver-popover-progress-text');
+  progress.innerText = '';
 
-  const footerButtons = document.createElement("span");
-  footerButtons.classList.add("driver-popover-navigation-btns");
+  const footerButtons = document.createElement('span');
+  footerButtons.classList.add('driver-popover-navigation-btns');
 
-  const previousButton = document.createElement("button");
-  previousButton.type = "button";
-  previousButton.classList.add("driver-popover-prev-btn");
-  previousButton.innerHTML = "&larr; Previous";
+  const previousButton = document.createElement('button');
+  previousButton.type = 'button';
+  previousButton.classList.add('driver-popover-prev-btn');
+  previousButton.innerHTML = '&larr; Previous';
 
-  const nextButton = document.createElement("button");
-  nextButton.type = "button";
-  nextButton.classList.add("driver-popover-next-btn");
-  nextButton.innerHTML = "Next &rarr;";
+  const nextButton = document.createElement('button');
+  nextButton.type = 'button';
+  nextButton.classList.add('driver-popover-next-btn');
+  nextButton.innerHTML = 'Next &rarr;';
 
   footerButtons.appendChild(previousButton);
   footerButtons.appendChild(nextButton);
@@ -694,7 +694,7 @@ function createPopover(): PopoverDOM {
 }
 
 export function destroyPopover() {
-  const popover = getState("popover");
+  const popover = getState('popover');
   if (!popover) {
     return;
   }

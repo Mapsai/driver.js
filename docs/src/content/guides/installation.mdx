@@ -1,6 +1,6 @@
 ---
-title: "Installation"
-groupTitle: "Introduction"
+title: 'Installation'
+groupTitle: 'Introduction'
 sort: 1
 ---
 
@@ -21,23 +21,24 @@ Alternatively, you can use CDN and include the script in your HTML file:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.js.iife.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.css" />
 ```
 
 ## Start Using
+
 Once installed, you can import the package in your project. The following example shows how to highlight an element:
 
 ```js
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
 
 const driverObj = driver();
 driverObj.highlight({
-  element: "#some-element",
+  element: '#some-element',
   popover: {
-    title: "Title",
-    description: "Description"
-  }
+    title: 'Title',
+    description: 'Description',
+  },
 });
 ```
 
@@ -51,11 +52,11 @@ const driver = window.driver.js.driver;
 const driverObj = driver();
 
 driverObj.highlight({
-  element: "#some-element",
+  element: '#some-element',
   popover: {
-    title: "Title",
-    description: "Description"
-  }
+    title: 'Title',
+    description: 'Description',
+  },
 });
 ```
 

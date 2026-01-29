@@ -1,8 +1,8 @@
 /// <reference types="vitest" />
-import path from "path";
-import { defineConfig } from "vite";
+import path from 'path';
+import { defineConfig } from 'vite';
 
-const packageName = "driver.js";
+const packageName = 'driver.js';
 
 const fileName = {
   es: `${packageName}.mjs`,
@@ -13,11 +13,11 @@ const fileName = {
 const formats = Object.keys(fileName) as Array<keyof typeof fileName>;
 
 module.exports = defineConfig({
-  base: "./",
+  base: './',
   build: {
-    target: "ES2019",
+    target: 'ES2019',
     lib: {
-      entry: path.resolve(__dirname, "src/driver.ts"),
+      entry: path.resolve(__dirname, 'src/driver.ts'),
       name: packageName,
       formats,
       fileName: format => fileName[format],
@@ -25,7 +25,7 @@ module.exports = defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: assetInfo => {
-          return assetInfo.name === "style.css" ? `driver.css` : assetInfo.name as string;
+          return assetInfo.name === 'style.css' ? `driver.css` : (assetInfo.name as string);
         },
       },
     },

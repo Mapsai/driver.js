@@ -1,10 +1,10 @@
 ---
-title: "Configuration"
-groupTitle: "Introduction"
+title: 'Configuration'
+groupTitle: 'Introduction'
 sort: 3
 ---
 
-import { CodeSample } from "../../components/CodeSample.tsx";
+import { CodeSample } from '../../components/CodeSample.tsx';
 
 Driver.js is built to be highly configurable. You can configure the driver globally, or per step. You can also configure the driver on the fly, while it's running.
 
@@ -35,7 +35,10 @@ type Config = {
   overlayOpacity?: number;
   // What to do when the overlay backdrop is clicked.
   // Possible options are 'close', 'nextStep', or a custom function. (default: 'close')
-  overlayClickBehavior?: "close" | "nextStep" | ((element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void),
+  overlayClickBehavior?:
+    | 'close'
+    | 'nextStep'
+    | ((element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void);
   // Distance between the highlighted element and the cutout. (default: 10)
   stagePadding?: number;
   // Radius of the cutout around the highlighted element. (default: 5)
@@ -76,7 +79,7 @@ type Config = {
   // PopoverDOM is an object with references to
   // the popover DOM elements such as buttons
   // title, descriptions, body, container etc.
-  onPopoverRender?: (popover: PopoverDOM, options: { config: Config; state: State, driver: Driver }) => void;
+  onPopoverRender?: (popover: PopoverDOM, options: { config: Config; state: State; driver: Driver }) => void;
 
   // Hooks to run before and after highlighting
   // each step. Each hook receives the following
@@ -86,9 +89,21 @@ type Config = {
   //   - options.config: The current configuration options
   //   - options.state: The current state of the driver
   //   - options.driver: Current driver object
-  onHighlightStarted?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onHighlighted?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onDeselected?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
+  onHighlightStarted?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+  onHighlighted?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+  onDeselected?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
 
   // Hooks to run before and after the driver
   // is destroyed. Each hook receives
@@ -98,8 +113,12 @@ type Config = {
   //   - options.config: The current configuration options
   //   - options.state: The current state of the driver
   //   - options.driver: Current driver object
-  onDestroyStarted?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onDestroyed?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
+  onDestroyStarted?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+  onDestroyed?: (element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void;
 
   // Hooks to run on button clicks. Each hook receives
   // the following parameters:
@@ -108,9 +127,13 @@ type Config = {
   //   - options.config: The current configuration options
   //   - options.state: The current state of the driver
   //   - options.driver: Current driver object
-  onNextClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onPrevClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onCloseClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
+  onNextClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void;
+  onPrevClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void;
+  onCloseClick?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
 };
 ```
 
@@ -134,19 +157,19 @@ type Popover = {
 
   // The position and alignment of the popover
   // relative to the target element.
-  side?: "top" | "right" | "bottom" | "left";
-  align?: "start" | "center" | "end";
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
 
   // Array of buttons to show in the popover.
   // When highlighting a single element, there
   // are no buttons by default. When showing
   // a tour, the default buttons are "next",
   // "previous" and "close".
-  showButtons?: ("next" | "previous" | "close")[];
+  showButtons?: ('next' | 'previous' | 'close')[];
   // An array of buttons to disable. This is
   // useful when you want to show some of the
   // buttons, but disable some of them.
-  disableButtons?: ("next" | "previous" | "close")[];
+  disableButtons?: ('next' | 'previous' | 'close')[];
 
   // Text to show in the buttons. `doneBtnText`
   // is used on the last step of a tour.
@@ -173,7 +196,7 @@ type Popover = {
   // Parameter is an object with references to
   // the popover DOM elements such as buttons
   // title, descriptions, body, etc.
-  onPopoverRender?: (popover: PopoverDOM, options: { config: Config; state: State, driver: Driver }) => void;
+  onPopoverRender?: (popover: PopoverDOM, options: { config: Config; state: State; driver: Driver }) => void;
 
   // Callbacks for button clicks. You can use
   // these to add custom behavior to the buttons.
@@ -183,10 +206,14 @@ type Popover = {
   //   - options.config: The current configuration options
   //   - options.state: The current state of the driver
   //   - options.driver: Current driver object
-  onNextClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void
-  onPrevClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void
-  onCloseClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void
-}
+  onNextClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void;
+  onPrevClick?: (element?: Element, step: DriveStep, options: { config: Config; state: State; driver: Driver }) => void;
+  onCloseClick?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+};
 ```
 
 ## Drive Step Configuration
@@ -217,10 +244,22 @@ type DriveStep = {
   //   - options.config: The current configuration options
   //   - options.state: The current state of the driver
   //   - options.driver: Current driver object
-  onDeselected?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onHighlightStarted?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-  onHighlighted?: (element?: Element, step: DriveStep, options: { config: Config; state: State, driver: Driver }) => void;
-}
+  onDeselected?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+  onHighlightStarted?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+  onHighlighted?: (
+    element?: Element,
+    step: DriveStep,
+    options: { config: Config; state: State; driver: Driver }
+  ) => void;
+};
 ```
 
 ## State
@@ -249,5 +288,5 @@ type State = {
   // DOM elements for the popover i.e. including
   // container, title, description, buttons etc.
   popover?: PopoverDOM;
-}
+};
 ```

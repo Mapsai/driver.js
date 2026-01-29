@@ -1,6 +1,6 @@
 ---
-title: "Theming"
-groupTitle: "Introduction"
+title: 'Theming'
+groupTitle: 'Introduction'
 sort: 5
 ---
 
@@ -12,7 +12,7 @@ You can set the `popoverClass` option globally in the driver configuration or at
 
 ```js
 const driverObj = driver({
-  popoverClass: 'my-custom-popover-class'
+  popoverClass: 'my-custom-popover-class',
 });
 
 // or you can also have different classes for different steps
@@ -23,34 +23,43 @@ const driverObj2 = driver({
       popover: {
         title: 'Title',
         description: 'Description',
-        popoverClass: 'my-custom-popover-class'
-      }
-    }
+        popoverClass: 'my-custom-popover-class',
+      },
+    },
   ],
-})
+});
 ```
 
 Here is the list of classes applied to the popover which you can use in conjunction with `popoverClass` option to apply custom styles on the popover.
 
 ```css
 /* Class assigned to popover wrapper */
-.driver-popover {}
+.driver-popover {
+}
 
 /* Arrow pointing towards the highlighted element */
-.driver-popover-arrow {}
+.driver-popover-arrow {
+}
 
 /* Title and description */
-.driver-popover-title {}
-.driver-popover-description {}
+.driver-popover-title {
+}
+.driver-popover-description {
+}
 
 /* Close button displayed on the top right corner */
-.driver-popover-close-btn {}
+.driver-popover-close-btn {
+}
 
 /* Footer of the popover displaying progress and navigation buttons */
-.driver-popover-footer {}
-.driver-popover-progress-text {}
-.driver-popover-prev-btn {}
-.driver-popover-next-btn {}
+.driver-popover-footer {
+}
+.driver-popover-progress-text {
+}
+.driver-popover-prev-btn {
+}
+.driver-popover-next-btn {
+}
 ```
 
 Visit the [example page](/docs/styling-popover) for an example that modifies the popover styles.
@@ -82,15 +91,19 @@ Following classes are applied to the page when the driver is active.
 
 ```css
 /* Applied to the `body` when the driver: */
-.driver-active {}  /* is active */
-.driver-fade {}    /* is animated */
-.driver-simple {}  /* is not animated */
+.driver-active {
+} /* is active */
+.driver-fade {
+} /* is animated */
+.driver-simple {
+} /* is not animated */
 ```
 
 Following classes are applied to the overlay i.e. the lightbox displayed over the page.
 
 ```css
-.driver-overlay {}
+.driver-overlay {
+}
 ```
 
 ## Styling Highlighted Element
@@ -98,5 +111,6 @@ Following classes are applied to the overlay i.e. the lightbox displayed over th
 Whenever an element is highlighted, the following classes are applied to it.
 
 ```css
-.driver-active-element {}
+.driver-active-element {
+}
 ```

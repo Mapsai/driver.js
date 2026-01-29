@@ -1,31 +1,31 @@
-import { refreshActiveHighlight } from "./highlight";
-import { emit } from "./emitter";
-import { getState, setState } from "./state";
-import { getConfig } from "./config";
-import { getFocusableElements } from "./utils";
+import { refreshActiveHighlight } from './highlight';
+import { emit } from './emitter';
+import { getState, setState } from './state';
+import { getConfig } from './config';
+import { getFocusableElements } from './utils';
 
 export function requireRefresh() {
-  const resizeTimeout = getState("__resizeTimeout");
+  const resizeTimeout = getState('__resizeTimeout');
   if (resizeTimeout) {
     window.cancelAnimationFrame(resizeTimeout);
   }
 
-  setState("__resizeTimeout", window.requestAnimationFrame(refreshActiveHighlight));
+  setState('__resizeTimeout', window.requestAnimationFrame(refreshActiveHighlight));
 }
 
 function trapFocus(e: KeyboardEvent) {
-  const isActivated = getState("isInitialized");
+  const isActivated = getState('isInitialized');
   if (!isActivated) {
     return;
   }
 
-  const isTabKey = e.key === "Tab" || e.keyCode === 9;
+  const isTabKey = e.key === 'Tab' || e.keyCode === 9;
   if (!isTabKey) {
     return;
   }
 
-  const activeElement = getState("__activeElement");
-  const popoverEl = getState("popover")?.wrapper;
+  const activeElement = getState('__activeElement');
+  const popoverEl = getState('popover')?.wrapper;
 
   const focusableEls = getFocusableElements([
     ...(popoverEl ? [popoverEl] : []),
@@ -49,18 +49,18 @@ function trapFocus(e: KeyboardEvent) {
 }
 
 function onKeyup(e: KeyboardEvent) {
-  const allowKeyboardControl = getConfig("allowKeyboardControl") ?? true;
+  const allowKeyboardControl = getConfig('allowKeyboardControl') ?? true;
 
   if (!allowKeyboardControl) {
     return;
   }
 
-  if (e.key === "Escape") {
-    emit("escapePress");
-  } else if (e.key === "ArrowRight") {
-    emit("arrowRightPress");
-  } else if (e.key === "ArrowLeft") {
-    emit("arrowLeftPress");
+  if (e.key === 'Escape') {
+    emit('escapePress');
+  } else if (e.key === 'ArrowRight') {
+    emit('arrowRightPress');
+  } else if (e.key === 'ArrowLeft') {
+    emit('arrowLeftPress');
   }
 }
 
@@ -98,14 +98,14 @@ export function onDriverClick(
   const useCapture = true;
 
   // Events to disable
-  document.addEventListener("pointerdown", listenerWrapper, useCapture);
-  document.addEventListener("mousedown", listenerWrapper, useCapture);
-  document.addEventListener("pointerup", listenerWrapper, useCapture);
-  document.addEventListener("mouseup", listenerWrapper, useCapture);
+  document.addEventListener('pointerdown', listenerWrapper, useCapture);
+  document.addEventListener('mousedown', listenerWrapper, useCapture);
+  document.addEventListener('pointerup', listenerWrapper, useCapture);
+  document.addEventListener('mouseup', listenerWrapper, useCapture);
 
   // Actual click handler
   document.addEventListener(
-    "click",
+    'click',
     e => {
       listenerWrapper(e, listener);
     },
@@ -114,14 +114,14 @@ export function onDriverClick(
 }
 
 export function initEvents() {
-  window.addEventListener("keyup", onKeyup, false);
-  window.addEventListener("keydown", trapFocus, false);
-  window.addEventListener("resize", requireRefresh);
-  window.addEventListener("scroll", requireRefresh);
+  window.addEventListener('keyup', onKeyup, false);
+  window.addEventListener('keydown', trapFocus, false);
+  window.addEventListener('resize', requireRefresh);
+  window.addEventListener('scroll', requireRefresh);
 }
 
 export function destroyEvents() {
-  window.removeEventListener("keyup", onKeyup);
-  window.removeEventListener("resize", requireRefresh);
-  window.removeEventListener("scroll", requireRefresh);
+  window.removeEventListener('keyup', onKeyup);
+  window.removeEventListener('resize', requireRefresh);
+  window.removeEventListener('scroll', requireRefresh);
 }

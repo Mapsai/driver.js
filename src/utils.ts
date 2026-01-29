@@ -1,4 +1,4 @@
-import { getConfig } from "./config";
+import { getConfig } from './config';
 
 export function easeInOutQuad(elapsed: number, initialValue: number, amountOfChange: number, duration: number): number {
   if ((elapsed /= duration / 2) < 1) {
@@ -19,7 +19,7 @@ export function getFocusableElements(parentEls: Element[] | HTMLElement[]) {
       return [...(isParentFocusable ? [parentEl as HTMLElement] : []), ...focusableEls];
     })
     .filter(el => {
-      return getComputedStyle(el).pointerEvents !== "none" && isElementVisible(el);
+      return getComputedStyle(el).pointerEvents !== 'none' && isElementVisible(el);
     });
 }
 
@@ -28,16 +28,16 @@ export function bringInView(element: Element) {
     return;
   }
 
-  const shouldSmoothScroll = getConfig("smoothScroll");
+  const shouldSmoothScroll = getConfig('smoothScroll');
 
   const isTallerThanViewport = (element as HTMLElement).offsetHeight > window.innerHeight;
 
   element.scrollIntoView({
     // Removing the smooth scrolling for elements which exist inside the scrollable parent
     // This was causing the highlight to not properly render
-    behavior: !shouldSmoothScroll || hasScrollableParent(element) ? "auto" : "smooth",
-    inline: "center",
-    block: isTallerThanViewport ? "start" : "center",
+    behavior: !shouldSmoothScroll || hasScrollableParent(element) ? 'auto' : 'smooth',
+    inline: 'center',
+    block: isTallerThanViewport ? 'start' : 'center',
   });
 }
 

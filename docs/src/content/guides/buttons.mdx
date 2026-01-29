@@ -1,10 +1,10 @@
 ---
-title: "Popover Buttons"
-groupTitle: "Examples"
+title: 'Popover Buttons'
+groupTitle: 'Examples'
 sort: 9
 ---
 
-import { CodeSample } from "../../components/CodeSample.tsx";
+import { CodeSample } from '../../components/CodeSample.tsx';
 
 You can use the `showButtons` option to choose which buttons to show in the popover. The default value is `['next', 'previous', 'close']`.
 
@@ -72,6 +72,7 @@ You can use the `showButtons` option to choose which buttons to show in the popo
 
     driverObj.drive();
     ```
+
   </CodeSample>
   <CodeSample
     buttonText="No Close Button"
@@ -174,6 +175,7 @@ You can also change the text of buttons using `nextBtnText`, `prevBtnText` and `
 
     driverObj.drive();
     ```
+
   </CodeSample>
 </div>
 
@@ -208,29 +210,30 @@ You can use the `onNextClick`, `onPreviousClick` and `onCloseClick` callbacks to
   import { driver } from "driver.js";
   import "driver.js/dist/driver.css";
 
-  const driverObj = driver({
-    onNextClick:() => {
-      console.log('Next Button Clicked');
-      // Implement your own functionality here
-      driverObj.moveNext();
-    },
-    onPrevClick:() => {
-      console.log('Previous Button Clicked');
-      // Implement your own functionality here
-      driverObj.movePrevious();
-    },
-    onCloseClick:() => {
-      console.log('Close Button Clicked');
-      // Implement your own functionality here
-      driverObj.destroy();
-    },
-    steps: [
-      // ...
-    ]
-  });
+const driverObj = driver({
+onNextClick:() => {
+console.log('Next Button Clicked');
+// Implement your own functionality here
+driverObj.moveNext();
+},
+onPrevClick:() => {
+console.log('Previous Button Clicked');
+// Implement your own functionality here
+driverObj.movePrevious();
+},
+onCloseClick:() => {
+console.log('Close Button Clicked');
+// Implement your own functionality here
+driverObj.destroy();
+},
+steps: [
+// ...
+]
+});
 
-  driverObj.drive();
-  ```
+driverObj.drive();
+
+````
 </CodeSample>
 
 ## Custom Buttons
@@ -239,67 +242,68 @@ You can add custom buttons using `onPopoverRender` callback. This callback is ca
 
 
 <CodeSample
-  buttonText={"Run Example"}
-  config={{
-    prevBtnText: '&larr; Previous',
-    nextBtnText: 'Next &rarr;',
-    doneBtnText: 'Done',
-    showButtons: ['next', 'previous'],
-  }}
-  tour={[
-    {
-      element: '#demo-hook-theme',
-      popover: {
-        align: 'start',
-        side: 'left',
-        title: 'More Control with Hooks',
-        description: 'You can use onPopoverRender hook to modify the popover DOM. Here we are adding a custom button to the popover which takes the user to the first step.'
-      }
-    },
-    {
-      element: 'h1',
-      popover: {
-        align: 'start',
-        side: 'bottom',
-        title: 'Style However You Want',
-        description: 'You can use the default class names and override the styles or you can pass a custom class name to the popoverClass option either globally or per step.'
-      }
-    },
-    {
-      element: 'p a',
-      popover: {
-        align: 'start',
-        side: 'left',
-        title: 'Style However You Want',
-        description: 'You can use the default class names and override the styles or you can pass a custom class name to the popoverClass option either globally or per step.'
-      }
+buttonText={"Run Example"}
+config={{
+  prevBtnText: '&larr; Previous',
+  nextBtnText: 'Next &rarr;',
+  doneBtnText: 'Done',
+  showButtons: ['next', 'previous'],
+}}
+tour={[
+  {
+    element: '#demo-hook-theme',
+    popover: {
+      align: 'start',
+      side: 'left',
+      title: 'More Control with Hooks',
+      description: 'You can use onPopoverRender hook to modify the popover DOM. Here we are adding a custom button to the popover which takes the user to the first step.'
     }
-  ]}
-  id={"demo-hook-theme"}
-  client:load
+  },
+  {
+    element: 'h1',
+    popover: {
+      align: 'start',
+      side: 'bottom',
+      title: 'Style However You Want',
+      description: 'You can use the default class names and override the styles or you can pass a custom class name to the popoverClass option either globally or per step.'
+    }
+  },
+  {
+    element: 'p a',
+    popover: {
+      align: 'start',
+      side: 'left',
+      title: 'Style However You Want',
+      description: 'You can use the default class names and override the styles or you can pass a custom class name to the popoverClass option either globally or per step.'
+    }
+  }
+]}
+id={"demo-hook-theme"}
+client:load
 >
-  ```js
-  import { driver } from "driver.js";
-  import "driver.js/dist/driver.css";
+```js
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
-  const driverObj = driver({
-    // Get full control over the popover rendering.
-    // Here we are adding a custom button that takes
-    // user to the first step.
-    onPopoverRender: (popover, { config, state }) => {
-      const firstButton = document.createElement("button");
-      firstButton.innerText = "Go to First";
-      popover.footerButtons.appendChild(firstButton);
+const driverObj = driver({
+  // Get full control over the popover rendering.
+  // Here we are adding a custom button that takes
+  // user to the first step.
+  onPopoverRender: (popover, { config, state }) => {
+    const firstButton = document.createElement("button");
+    firstButton.innerText = "Go to First";
+    popover.footerButtons.appendChild(firstButton);
 
-      firstButton.addEventListener("click", () => {
-        driverObj.drive(0);
-      });
-    },
-    steps: [
-      // ..
-    ]
-  });
+    firstButton.addEventListener("click", () => {
+      driverObj.drive(0);
+    });
+  },
+  steps: [
+    // ..
+  ]
+});
 
-  driverObj.drive();
-  ```
+driverObj.drive();
+````
+
 </CodeSample>

@@ -1,12 +1,7 @@
 declare global {
   interface Window {
     gtag: any;
-    fireEvent: (props: {
-      action: string;
-      category: string;
-      label?: string;
-      value?: string;
-    }) => void;
+    fireEvent: (props: { action: string; category: string; label?: string; value?: string }) => void;
   }
 }
 
@@ -16,7 +11,7 @@ declare global {
  * @param props Event properties
  * @returns void
  */
-window.fireEvent = (props) => {
+window.fireEvent = props => {
   const { action, category, label, value } = props;
   if (!window.gtag) {
     console.warn('Missing GTAG - Analytics disabled');
